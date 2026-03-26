@@ -1,0 +1,56 @@
+<div class="min-h-screen bg-gray-100 flex items-center justify-center p-4 font-sans">
+
+  <div [ngClass]="getColoreBordo()"
+       class="bg-white p-8 rounded-3xl shadow-2xl border-t-8 w-full max-w-md transition-all duration-500">
+
+    <div class="text-center mb-8">
+      <h1 class="text-4xl font-black text-gray-800 tracking-tight leading-none">App Meteo</h1>
+      <p class="text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em] mt-2">
+        Creato da Davide Sgnaolin
+      </p>
+    </div>
+
+    <div class="mb-8 flex gap-2">
+      <input #cityInput type="text" placeholder="Cerca una città..."
+             class="flex-1 p-4 border-2 border-gray-100 rounded-2xl focus:border-blue-500 outline-none transition-all text-gray-700 shadow-sm"
+             (keyup.enter)="getMeteo(cityInput.value)">
+      <button (click)="getMeteo(cityInput.value)"
+              class="bg-blue-600 text-white px-6 py-4 rounded-2xl font-bold hover:bg-blue-700 active:scale-95 transition-all shadow-lg">
+        Vai
+      </button>
+    </div>
+
+    @if (meteo) {
+      <div class="text-center animate-in fade-in zoom-in duration-500">
+
+        <div class="text-8xl mb-4">
+          @if (meteo.codiceMeteo === 0) { ☀️ }
+          @else if (meteo.codiceMeteo <= 3) { ⛅ }
+          @else if (meteo.codiceMeteo >= 45 && meteo.codiceMeteo <= 48) { 🌫️ }
+          @else if (meteo.codiceMeteo >= 51 && meteo.codiceMeteo <= 67) { 🌧️ }
+          @else if (meteo.codiceMeteo >= 71 && meteo.codiceMeteo <= 77) { ❄️ }
+          @else if (meteo.codiceMeteo >= 80 && meteo.codiceMeteo <= 82) { 🌦️ }
+          @else if (meteo.codiceMeteo >= 95) { ⚡ }
+          @else { ☁️ }
+        </div>
+
+        <p class="text-sm font-bold text-gray-400 uppercase tracking-widest mb-1">Località</p>
+        <p class="text-3xl font-bold text-gray-900 mb-2">{{ meteo.citta }}</p>
+
+        <div class="text-7xl font-black text-gray-800 my-6 tracking-tighter">
+          {{ meteo.temperatura }}°C
+        </div>
+
+        <div class="inline-block px-6 py-2 rounded-full bg-blue-50 text-blue-600 font-bold text-lg shadow-inner">
+          {{ meteo.condizione }}
+        </div>
+      </div>
+    } @else {
+      <div class="text-center py-12">
+        <div class="animate-spin inline-block w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full mb-4"></div>
+        <p class="text-gray-400 font-medium italic">Sincronizzazione dati...</p>
+      </div>
+    }
+
+  </div>
+</div>
