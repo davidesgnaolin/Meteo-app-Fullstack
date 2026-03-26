@@ -1,0 +1,7 @@
+# Per forzare GitHub a ignorare i file HTML per il conteggio delle percentuali
+*.html linguist-detectable=false
+*.css linguist-detectable=false
+
+# Per definire il progetto come TypeScript/JavaScript
+*.ts linguist-detectable=true
+*.js linguist-detectable=true
